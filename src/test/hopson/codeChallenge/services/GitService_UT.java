@@ -11,7 +11,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,7 +33,6 @@ public class GitService_UT {
     @Test
     public void testGetUserId() throws IOException{
         int id = gitService.getUsersId("defunkt");
-        System.out.println(id);
         assertEquals(2, id);
     }
 }

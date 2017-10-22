@@ -1,5 +1,8 @@
 package main.hopson.codeChallenge.controllers;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import main.hopson.codeChallenge.models.GitInfo;
 import main.hopson.codeChallenge.services.GitService;
 import org.apache.log4j.Logger;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 
 @RestController
+@Api(value = "GitService", description = "Git code challenge api")
 @RequestMapping(value = "/git")
 public class GitController {
 
@@ -22,8 +26,9 @@ public class GitController {
     @Inject
     private GitService gitService;
 
+    @ApiOperation(value = "Retrieve followers by git id")
     @RequestMapping(value = "/followers", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<GitInfo> getFollowerGitHubIds(@RequestParam Integer gitId){
+    public ResponseEntity<GitInfo> getFollowerGitHubIds(@ApiParam(name="gitId", required = true) @RequestParam Integer gitId){
         GitInfo gitInfo;
 
         try{
@@ -37,8 +42,9 @@ public class GitController {
         return ResponseEntity.status(HttpStatus.OK).body(gitInfo);
     }
 
+    @ApiOperation(value = "Get git id by user login")
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Integer> getUsersId(@RequestParam String userLogin){
+    public ResponseEntity<Integer> getUsersId(@ApiParam(name="userLogin", required = true)@RequestParam String userLogin){
         int userId = 0;
         try{
             userId = gitService.getUsersId(userLogin);
