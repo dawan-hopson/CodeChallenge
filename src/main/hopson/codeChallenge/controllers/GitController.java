@@ -30,10 +30,24 @@ public class GitController {
             gitInfo = gitService.getFollowersInfo(gitId);
         }
         catch (Exception e){
-            logger.error("Error calling git service for followers", e);
+            logger.error("Error followers for git id " + gitId, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(gitInfo);
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Integer> getUsersId(@RequestParam String userLogin){
+        int userId = 0;
+        try{
+            userId = gitService.getUsersId(userLogin);
+        }
+        catch (Exception e){
+            logger.error("Error retrieving user id for userLogin " + userLogin, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(userId);
     }
 }

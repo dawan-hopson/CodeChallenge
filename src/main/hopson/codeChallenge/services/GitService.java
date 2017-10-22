@@ -25,6 +25,15 @@ public class GitService {
     @Inject
     private GitSerializer gitSerializer;
 
+    public Integer getUsersId(String userLogin) throws IOException {
+        URI uri = URI.create("https://api.github.com/users/" + userLogin);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, null, String.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.readTree(responseEntity.getBody()).get("id").intValue();
+    }
+
     public GitInfo getFollowersInfo(Integer gitId) throws IOException {
         URI uri = URI.create("https://api.github.com/user/" + gitId);
 

@@ -30,4 +30,11 @@ public class GitService_UT {
         assertEquals("https://api.github.com/users/defunkt/followers", gitInfo.getFollowersUrl());
         assertNotNull(gitInfo);
     }
+
+    @Test
+    public void testGetUserId() throws IOException{
+        int id = gitService.getUsersId("defunkt");
+        System.out.println(id);
+        assertEquals(2, id);
+    }
 }
